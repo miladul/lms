@@ -63,16 +63,22 @@ if(isset($_POST['register'])){
             if($username_row_count == 0){
                 if($password==$cpassword){
                     if(strlen($password)>=8){
-                        $pass = md5($password);
-                        $status =0;
-                        $datetime = date("Y-m-d H:i:s");
-                        $insert_student = mysqli_query($link, "INSERT INTO `students`(`name`, `roll`, `reg`, `email`, `username`, `password`, `phone`,`photo`,`status`,`datetime`) VALUES ('$name','$roll','$reg','$email','$username','$pass','$phone','$photo_name','$status','$datetime')");
-                        move_uploaded_file($_FILES['photo']['tmp_name'], 'img/'.$photo_name);
-                        if($insert_student){
-                            $error = "Student Successfully added"; 
-                            //header('location: index.php');
-                        }
+                        $student_check = mysqli_query($link, "SELECT * FROM `students` WHERE `roll`='$roll' AND `reg`='$reg'");
+                        $student_row_count = mysqli_num_rows($student_check);
+                        if($student_row_count == 0){
+                            $pass = md5($password);
+                            $status =0;
+                            $datetime = date("Y-m-d H:i:s");
+                            $insert_student = mysqli_query($link, "INSERT INTO `students`(`name`, `roll`, `reg`, `email`, `username`, `password`, `phone`,`photo`,`status`,`datetime`) VALUES ('$name','$roll','$reg','$email','$username','$pass','$phone','$photo_name','$status','$datetime')");
+                            move_uploaded_file($_FILES['photo']['tmp_name'], 'img/'.$photo_name);
+                            if($insert_student){
+                                $insert_success = "Student Successfully added"; 
+                                //header('location: index.php');
+                            }
 
+                        }else{
+                            $error = "This student already Registered by roll/reg";
+                        }
                     }else{
                         $pass_poor = "Use password at least 8 characters";
                     }
@@ -134,6 +140,14 @@ if(isset($_POST['register'])){
                     ?>
                     <div class="alert alert-danger" role="alert">
                         <?=$error?>
+                    </div>
+                <?php } ?>
+
+                <?php 
+                if(isset($insert_success)){
+                    ?>
+                    <div class="alert alert-success" role="alert">
+                        <?=$insert_success?>
                     </div>
                 <?php } ?>
 
