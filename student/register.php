@@ -5,6 +5,10 @@ require_once('../database.php');
     }else{
         echo "No, Database not connected";
     }*/
+session_start();
+if(isset($_SESSION['username'])){
+  header('location: index.php');
+}
 
 if(isset($_POST['register'])){
     $name = $_POST['name'];
@@ -65,19 +69,24 @@ if(isset($_POST['register'])){
                     if(strlen($password)>=8){
                         $student_check = mysqli_query($link, "SELECT * FROM `students` WHERE `roll`='$roll' AND `reg`='$reg'");
                         $student_row_count = mysqli_num_rows($student_check);
-                        if($student_row_count == 0){
-                            $pass = md5($password);
-                            $status =0;
-                            $datetime = date("Y-m-d H:i:s");
-                            $insert_student = mysqli_query($link, "INSERT INTO `students`(`name`, `roll`, `reg`, `email`, `username`, `password`, `phone`,`photo`,`status`,`datetime`) VALUES ('$name','$roll','$reg','$email','$username','$pass','$phone','$photo_name','$status','$datetime')");
-                            move_uploaded_file($_FILES['photo']['tmp_name'], 'img/'.$photo_name);
-                            if($insert_student){
-                                $insert_success = "Student Successfully added"; 
-                                //header('location: index.php');
+                        if(strlen($username)>=4){
+                            if($student_row_count == 0){
+                                $pass = md5($password);
+                                $status =0;
+                                $datetime = date("Y-m-d H:i:s");
+                                $insert_student = mysqli_query($link, "INSERT INTO `students`(`name`, `roll`, `reg`, `email`, `username`, `password`, `phone`,`photo`,`status`,`datetime`) VALUES ('$name','$roll','$reg','$email','$username','$pass','$phone','$photo_name','$status','$datetime')");
+                                move_uploaded_file($_FILES['photo']['tmp_name'], 'img/'.$photo_name);
+                                if($insert_student){
+                                    //$insert_success = "Student Successfully added"; 
+                                    header('location: sign-in.php?added');//added for message passto login
+                                }
+
+                            }else{
+                                $error = "This student already Registered by roll/reg";
                             }
 
                         }else{
-                            $error = "This student already Registered by roll/reg";
+                            $error = "Username at least 4 characters";
                         }
                     }else{
                         $pass_poor = "Use password at least 8 characters";
@@ -143,13 +152,7 @@ if(isset($_POST['register'])){
                     </div>
                 <?php } ?>
 
-                <?php 
-                if(isset($insert_success)){
-                    ?>
-                    <div class="alert alert-success" role="alert">
-                        <?=$insert_success?>
-                    </div>
-                <?php } ?>
+                
 
 
                 
@@ -161,20 +164,7 @@ if(isset($_POST['register'])){
                             </span>
                             <span class="text-danger"><?php if(isset($inpur_error['name'])){echo $inpur_error['name'];}?></span>
                         </div>
-                        <div class="form-group mt-md">
-                            <span class="input-with-icon">
-                                <input type="text" class="form-control" id="roll" name="roll" placeholder="Roll" value="<?php if(isset($roll)){echo $roll;}?>">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <span class="text-danger"><?php if(isset($inpur_error['roll'])){echo $inpur_error['roll'];}?></span>
-                        </div>
-                        <div class="form-group mt-md">
-                            <span class="input-with-icon">
-                                <input type="text" class="form-control" id="reg" name="reg" placeholder="Reg" value="<?php if(isset($reg)){echo $reg;}?>">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <span class="text-danger"><?php if(isset($inpur_error['reg'])){echo $inpur_error['reg'];}?></span>
-                        </div>
+                        
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php if(isset($email)){echo $email;}?>">
@@ -204,6 +194,20 @@ if(isset($_POST['register'])){
                             </span>
                             <span class="text-danger"><?php if(isset($inpur_error['cpassword'])){echo $inpur_error['cpassword'];}?></span>
                             <span class="text-danger"><?php if(isset($cpass_error)){echo $cpass_error;}?></span>
+                        </div>
+                        <div class="form-group mt-md">
+                            <span class="input-with-icon">
+                                <input type="text" class="form-control" id="roll" name="roll" placeholder="Roll" value="<?php if(isset($roll)){echo $roll;}?>">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <span class="text-danger"><?php if(isset($inpur_error['roll'])){echo $inpur_error['roll'];}?></span>
+                        </div>
+                        <div class="form-group mt-md">
+                            <span class="input-with-icon">
+                                <input type="text" class="form-control" id="reg" name="reg" placeholder="Reg" value="<?php if(isset($reg)){echo $reg;}?>">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <span class="text-danger"><?php if(isset($inpur_error['reg'])){echo $inpur_error['reg'];}?></span>
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">

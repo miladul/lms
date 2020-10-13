@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location: sign-in.php');
+}
+//session_destroy();
+?>
+
 <!doctype html>
 <html lang="en" class="fixed left-sidebar-top">
 
@@ -140,7 +148,7 @@
                 <div class="header-separator"></div>
                 <!--Log out -->
                 <div class="header-section">
-                    <a href="" data-toggle="tooltip" data-placement="left" title="Logout"><i class="fa fa-sign-out log-out" aria-hidden="true"></i></a>
+                    <a href="logout.php" data-toggle="tooltip" data-placement="left" title="Logout"><i class="fa fa-sign-out log-out" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -197,7 +205,35 @@
                 </div>
                 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
                 <div class="row animated fadeInUp">
-                    Test
+
+                    <?php 
+                    if(isset($_GET['success'])){
+                        ?>
+                        <div class="alert alert-success alert-dismissable">
+                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                           <strong>Your login successfully</strong>
+                        </div>
+
+                    <?php } ?>
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
                 </div>
             </div>
             <!--scroll to top-->

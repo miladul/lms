@@ -1,3 +1,61 @@
+<?php
+require_once('../database.php');
+session_start();
+if(isset($_SESSION['username'])){
+  header('location: index.php');
+}
+
+if(isset($_POST['sign-in'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $input_error = array();
+    if(empty($email)){
+        $input_error['email']="Enter your email or username";
+    }
+    if(empty($password)){
+        $input_error['password']="Enter your password";
+    }
+    /*echo '<pre>';
+    print_r($input_error);*/
+    $count_input_error = count($input_error);
+    if($count_input_error==0){
+        $user_check = mysqli_query($link, "SELECT * FROM `students` WHERE `email`='$email' OR `username`='$email' ");
+        $count_user_row = mysqli_num_rows($user_check);
+        if($count_user_row==1){
+            $pass = md5($password);
+            $row = mysqli_fetch_assoc($user_check);
+            if($pass==$row['password']){
+                if($row['status']==1){
+                    $_SESSION['username']=$row['username'];
+                    $_SESSION['email']=$row['email'];
+                    $_SESSION['id']=$row['id'];
+                    header('location: index.php?success');
+                }else{
+                    $error = "Your account status is now inactive";
+
+                }
+            }else{
+                $error = "Password is wrong";
+            }
+        }else{
+            $error = "Username or Email is wrong";
+        }
+    }else{
+        $error = "Something is wrong";
+    }
+}
+
+?>
+
+
+
+
+
+
+
+
+
 <!doctype html>
 <html lang="en" class="fixed accounts sign-in">
 
@@ -29,26 +87,47 @@
         <div class="logo">
             <h1 class="text-center">LMS</h1>
         </div>
+
         <div class="box">
             <!--SIGN IN FORM-->
             <div class="panel mb-none">
                 <h3>Login Form</h3>
                 <div class="panel-content bg-scale-0">
-                    <form>
+                    <?php 
+                    if(isset($_GET['added'])){
+                        ?>
+                        <div class="alert alert-success alert-dismissable">
+                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                           <strong>Your registration completed successfully</strong>
+                        </div>
+                    <?php } ?>
+
+                    <?php 
+                    if(isset($error)){
+                        ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?=$error?>
+                        </div>
+                    <?php } ?>
+
+                    <form action="" method="POST">
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email or Username" value="<?php if(isset($email)){echo $email;}?>">
                                 <i class="fa fa-envelope"></i>
                             </span>
+                            <span class="text-danger"><?php if(isset($input_error['email'])){echo $input_error['email'];}?></span>
                         </div>
                         <div class="form-group">
                             <span class="input-with-icon">
-                                <input type="password" class="form-control" id="password" placeholder="Password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="<?php if(isset($password)){echo $password;}?>">
                                 <i class="fa fa-key"></i>
                             </span>
+                            <span class="text-danger"><?php if(isset($input_error['password'])){echo $input_error['password'];}?></span>
                         </div>
                         <div class="form-group">
-                            <a href="index.html" class="btn btn-primary btn-block">Sign in</a>
+                            <input class="btn btn-primary btn-block" type="submit" name="sign-in" value="Sign In">
+                            
                         </div>
                         <div class="form-group text-center">
                             <a href="pages_forgot-password.html">Forgot password?</a>
