@@ -1,10 +1,3 @@
-<?php 
-session_start();
-if(!isset($_SESSION['username'])){
-    header('location: sign-in.php');
-}
-//session_destroy();
-?>
 <?php require_once('header.php'); ?>
             <!-- CONTENT -->
             <!-- ========================================================= -->
@@ -16,21 +9,20 @@ if(!isset($_SESSION['username'])){
                     <div class="leftside-content-header">
                         <ul class="breadcrumbs">
                             <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Dashboard</a></li>
+                            <li><a href="#">Test2</a></li>
+
                         </ul>
                     </div>
                 </div>
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
                 <div class="row animated fadeInUp">
 
-                    <?php 
-                    if(isset($_GET['success'])){
-                        ?>
-                        <div class="alert alert-success alert-dismissable">
-                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                           <strong>Your login successfully</strong>
-                        </div>
 
-                    <?php } ?>
+                    Test-2 page
+
+
+
+
                 </div>
             </div>
 
