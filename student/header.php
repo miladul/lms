@@ -2,7 +2,7 @@
 
 $page = explode('/', $_SERVER['PHP_SELF']);
 $page = end($page);
-echo $page;
+//echo $page;
 
 ?>
 
@@ -33,8 +33,6 @@ echo $page;
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
-
-
 </head>
 
 <body>
