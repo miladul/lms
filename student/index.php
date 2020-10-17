@@ -1,10 +1,4 @@
-<?php 
-session_start();
-if(!isset($_SESSION['username'])){
-    header('location: sign-in.php');
-}
-//session_destroy();
-?>
+
 <?php require_once('header.php'); ?>
             <!-- CONTENT -->
             <!-- ========================================================= -->

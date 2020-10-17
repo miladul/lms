@@ -1,9 +1,9 @@
 <?php
 require_once('../database.php');
 session_start();
-/*if(isset($_SESSION['username'])){
+if(isset($_SESSION['username'])){
   header('location: index.php');
-}*/
+}
 
 if(isset($_POST['sign-in'])){
     $email = $_POST['email'];
@@ -27,9 +27,10 @@ if(isset($_POST['sign-in'])){
             $row = mysqli_fetch_assoc($user_check);
             if($pass==$row['password']){
                 if($row['status']==1){
-                    $_SESSION['username']=$row['username'];
-                    $_SESSION['email']=$row['email'];
-                    $_SESSION['id']=$row['id'];
+                    $_SESSION['librarian_name']=$row['name'];
+                    $_SESSION['librarian_username']=$row['username'];
+                    $_SESSION['librarian_email']=$row['email'];
+                    $_SESSION['librarian_id']=$row['id'];
                     header('location: index.php?success');
                 }else{
                     $error = "Your account status is now inactive";

@@ -1,13 +1,17 @@
 <?php
 
+require_once('../database.php');
 $page = explode('/', $_SERVER['PHP_SELF']);
 $page = end($page);
 //echo $page;
 
 session_start();
-if(!isset($_SESSION['username'])){
-    header('location: sign-in.php');
+if(!isset($_SESSION['librarian_username'])){
+    header('location: user-login.php');
 }
+
+
+
 
 ?>
 
@@ -35,6 +39,8 @@ if(!isset($_SESSION['username'])){
     <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
     <!--Magnific popup-->
     <link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css">
+    <!--dataTable-->
+    <link rel="stylesheet" href="../assets/vendor/data-table/media/css/dataTables.bootstrap.min.css">
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
@@ -136,8 +142,8 @@ if(!isset($_SESSION['username'])){
                             <img alt="profile photo" src="../assets/images/avatar/avatar_user.jpg" />
                         </div>
                         <div class="user-info">
-                            <span class="user-name">Jane Doe</span>
-                            <span class="user-profile">Admin</span>
+                            <span class="user-name"><?=$_SESSION['librarian_name']?></span>
+                            <span class="user-profile">Librarian</span>
                         </div>
                         <i class="fa fa-plus icon-open" aria-hidden="true"></i>
                         <i class="fa fa-minus icon-close" aria-hidden="true"></i>
@@ -179,7 +185,7 @@ if(!isset($_SESSION['username'])){
                                 <!--HOME-->
                                 <li class="<?= $page=='index.php'?'active-item':'' ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
                                 
-                                <li class="<?= $page=='test.php'?'active-item':'' ?>"><a href="test.php"><i class="fa fa-book" aria-hidden="true"></i><span>Test</span></a></li>
+                                <li class="<?= $page=='students.php'?'active-item':'' ?>"><a href="students.php"><i class="fa fa-users" aria-hidden="true"></i><span>Students</span></a></li>
                                 <li class="<?= $page=='test2.php'?'active-item':'' ?>"><a href="test2.php"><i class="fa fa-book" aria-hidden="true"></i><span>Test2</span></a></li>
                             </ul>
                         </nav>
