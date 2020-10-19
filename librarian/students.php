@@ -26,8 +26,22 @@
 			<h4 class="section-subtitle"><b>All Students</b></h4>
 			<div class="panel">
 				<div class="panel-content">
+					<?php 
+                    if(isset($_GET['active_status_change'])){ ?>
+                    	<div class="alert alert-warning alert-dismissable">
+                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                           <strong>Student status is now Inactive</strong>
+                        </div>
+                    <?php } ?>
+                    <?php 
+                    if(isset($_GET['inactive_status_change'])){ ?>
+                    	<div class="alert alert-success alert-dismissable">
+                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                           <strong>Student status is now Acctive</strong>
+                        </div>
+                    <?php } ?>
 					<div class="table-responsive">
-						<table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+						<table id="basic-table" class="data-table table table-striped nowrap table-hover table-bordered" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>SL</th>
@@ -38,7 +52,6 @@
 									<th>Username</th>
 									<th>Photo</th>
 									<th>Status</th>
-									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,9 +64,7 @@
 									$sl++;
 									
 									?>
-
-
-								<tr>
+									<tr>
 									<td><?= $sl;?></td>
 									<td><?= $rows['name'];?></td>
 									<td><?= $rows['roll'];?></td>
@@ -62,14 +73,21 @@
 									<td><?= $rows['username'];?></td> 
 									<td><img style="height: 40px; width: 40px" src="../student/img/<?= $rows['photo'];?>"></td>
 									<td>
-										<!-- <?php 
-										echo $rows['status']==1?"":"<a class='btn btn-wide btn-danger'>Inactive</a>";
-										?> -->
-										<a src='<?= $rows['id'];?>' class='btn btn-wide btn-success'>Active</a>
+										<?php
+										if($rows['status']==1){ ?>
+											<form method="POST" action="change-status.php">
+												<input type="hidden" name="id" value="<?= $rows['id'];?>">
+												<input type="submit" name="active" value="Active" class='btn btn-wide btn-success'>
+											</form>
+										<?php
 
-										
+										}else{ ?>
+											<form method="POST" action="change-status.php">
+												<input type="hidden" name="id" value="<?= $rows['id'];?>">
+												<input type="submit" name="inactive" value="Inactive" class='btn btn-wide btn-warning'>
+											</form>
+										<?php } ?>
 									</td>
-									<td> Edit | Delete</td>
 								</tr>
 								<?php  } ?>
 							</tbody>

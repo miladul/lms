@@ -105,7 +105,8 @@ if(isset($_POST['sign-in'])){
                     <?php 
                     if(isset($error)){
                         ?>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger alert-dismissable" role="alert">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                             <?=$error?>
                         </div>
                     <?php } ?>

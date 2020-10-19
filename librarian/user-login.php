@@ -130,12 +130,6 @@ if(isset($_POST['sign-in'])){
                             <input class="btn btn-primary btn-block" type="submit" name="sign-in" value="Sign In">
                             
                         </div>
-                        <div class="form-group text-center">
-                            <a href="pages_forgot-password.html">Forgot password?</a>
-                            <hr/>
-                             <span>Don't have an account?</span>
-                            <a href="register.php" class="btn btn-block mt-sm">Register</a>
-                        </div>
                     </form>
                 </div>
             </div>
