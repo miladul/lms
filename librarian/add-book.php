@@ -67,7 +67,7 @@
 											 $input_error_count = count($inpur_error);
 											 if($input_error_count==0){
 											 	$librarian_username = $_SESSION['librarian_username'];
-											 	$insert_book = mysqli_query($link, "INSERT INTO `books`(`book_name`, `book_image`, `book_author_name`, `book_publication_name`, `book_price`, `book_qty`, `book_available_qty`, `librarian_username`) VALUES ('$book_name','$photo_name','$book_author_name','$book_publication_name','$book_price','$book_qty','$book_available_qty','$librarian_username')");
+											 	$insert_book = mysqli_query($link, "INSERT INTO `books`(`book_name`, `book_image`, `book_author_name`, `book_publication_name`, `book_price`, `book_qty`, `book_available_qty`, `librarian_username`,`status`) VALUES ('$book_name','$photo_name','$book_author_name','$book_publication_name','$book_price','$book_qty','$book_available_qty','$librarian_username','1')");
 											 	move_uploaded_file($_FILES['book_image']['tmp_name'], '../book_img/'.$photo_name);
 											 	if($insert_book){
 											 		$book_added = "Book successfully Added";

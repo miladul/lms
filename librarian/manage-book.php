@@ -40,13 +40,14 @@
 								<tr>
 									<th>SL</th>
 									<th>BookName</th>
-									<th>Book Price</th>
+									<th>Price</th>
 									<th>Book Qty</th>
-									<th>Book Available Qty</th>
-									<th>Book Added By</th>
-									<th>Purchase Date</th>
-									<th>Book Photo</th>
+									<th>Available Qty</th>
+									<th>Added By</th>
+									<th>P. Date</th>
+									<th>Photo</th>
 									<th>Status</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,21 +69,28 @@
 										<td><?= $rows['librarian_username'];?></td>
 										<td><?= date('d-M-y',strtotime($rows['date_time']));?></td>
 										<td><img style="height: 40px; width: 40px" src="../book_img/<?= $rows['book_image'];?>"></td>
+										
 										<td>
 											<?php
 											if($rows['status']==1){ ?>
-												<form method="POST" action="change-status.php">
+												<form method="POST" action="change-book-status.php">
 													<input type="hidden" name="id" value="<?= $rows['id'];?>">
 													<input type="submit" name="active" value="Active" class='btn btn-wide btn-success'>
 												</form>
 												<?php
 
 											}else{ ?>
-												<form method="POST" action="change-status.php">
+												<form method="POST" action="change-book-status.php">
 													<input type="hidden" name="id" value="<?= $rows['id'];?>">
 													<input type="submit" name="inactive" value="Inactive" class='btn btn-wide btn-warning'>
 												</form>
 											<?php } ?>
+										</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#book-id-<?= $rows['id'];?>"><i class="fa fa-eye"></i> </a>
+											<a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal" data-target="#info-modal"><i class="fa fa-pencil"></i> </a>
+											<a href="" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
+											
 										</td>
 									</tr>
 								<?php  } ?>
@@ -94,5 +102,70 @@
 		</div>
 	</div>
 </div>
+
+<?php 
+$books = mysqli_query($link, "SELECT * FROM `books` ORDER BY `id` DESC");
+while($rows = mysqli_fetch_assoc($books)){ ?>
+
+<div class="modal fade" id="book-id-<?= $rows['id'];?>" tabindex="-1" role="dialog" aria-labelledby="modal-info-label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header state modal-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="modal-info-label"><i class="fa fa-book"></i>Book Information</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-bodered table-hover">
+					<tr>
+						<th>Book Name: </th>
+						<td><?= $rows['book_name'];?></td>
+					</tr>
+					<tr>
+						<th>Author Name: </th>
+						<td><?= $rows['book_author_name'];?></td>
+					</tr>
+					<tr>
+						<th>Pubication: </th>
+						<td><?= $rows['book_publication_name'];?></td>
+					</tr>
+					<tr>
+						<th>Price: </th>
+						<td><?= $rows['book_price'];?></td>
+					</tr>
+					<tr>
+						<th>Quantity: </th>
+						<td><?= $rows['book_qty'];?></td>
+					</tr>
+					<tr>
+						<th>Available Quantity: </th>
+						<td><?= $rows['book_available_qty'];?></td>
+					</tr>
+					<tr>
+						<th>Added By: </th>
+						<td><?= $rows['librarian_username'];?></td>
+					</tr>
+					<tr>
+						<th>Status: </th>
+						<td><?= $rows['status']==1?'Active':'Inactive';?></td>
+					</tr>
+					<tr>
+						<th>Purchase Date: </th>
+						<td><?= date('d-M-y',strtotime($rows['date_time']));?></td>
+					</tr>
+
+					<tr>
+						<th>Photo: </th>
+						<td><img style="height: 100px;" src="../book_img/<?= $rows['book_image'];?>"></td>
+					</tr>
+					
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<?php } ?>
 
 <?php require_once('footer.php'); ?>
