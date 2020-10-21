@@ -71,9 +71,11 @@
 											 	move_uploaded_file($_FILES['book_image']['tmp_name'], '../book_img/'.$photo_name);
 											 	if($insert_book){
 											 		$book_added = "Book successfully Added";
+											 		echo '<p><a href="javascript:history.go(-1)" title="Return to the previous page">&laquo; Go back</a></p>';
+
 				                                }
 											 }else{
-											 	echo "Enput all field";
+											 	echo "Please input all field";
 											 }
 
 											
@@ -92,9 +94,6 @@
 										}
 
 										?>
-
-										
-
 
 	                                    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
 	                                    	<div class="form-group">

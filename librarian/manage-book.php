@@ -21,17 +21,24 @@
 			<div class="panel">
 				<div class="panel-content">
 					<?php 
+					if(isset($_GET['delete-book'])){ ?>
+						<div class="alert alert-danger alert-dismissable">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+							<strong>Book has been deleted</strong>
+						</div>
+					<?php } ?>
+					<?php 
 					if(isset($_GET['active_status_change'])){ ?>
 						<div class="alert alert-warning alert-dismissable">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-							<strong>Student status is now Inactive</strong>
+							<strong>Book status is now Inactive</strong>
 						</div>
 					<?php } ?>
 					<?php 
 					if(isset($_GET['inactive_status_change'])){ ?>
 						<div class="alert alert-success alert-dismissable">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-							<strong>Student status is now Acctive</strong>
+							<strong>Book status is now Acctive</strong>
 						</div>
 					<?php } ?>
 					<div class="table-responsive">
@@ -89,7 +96,8 @@
 										<td>
 											<a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#book-id-<?= $rows['id'];?>"><i class="fa fa-eye"></i> </a>
 											<a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal" data-target="#info-modal"><i class="fa fa-pencil"></i> </a>
-											<a href="" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
+
+											<a href="delete-book.php?delete=<?= base64_encode(md5($rows['id']))?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 											
 										</td>
 									</tr>
@@ -112,10 +120,10 @@ while($rows = mysqli_fetch_assoc($books)){ ?>
 		<div class="modal-content">
 			<div class="modal-header state modal-primary">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="modal-info-label"><i class="fa fa-book"></i>Book Information</h4>
+				<h4 class="modal-title" id="modal-info-label"><i class="fa fa-book"></i>Book Information of <?= $rows['book_name'];?></h4>
 			</div>
 			<div class="modal-body">
-				<table class="table table-bodered table-hover">
+				<table class="table table-bodered">
 					<tr>
 						<th>Book Name: </th>
 						<td><?= $rows['book_name'];?></td>
