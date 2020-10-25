@@ -9,6 +9,7 @@ session_start();
 if(!isset($_SESSION['librarian_username'])){
     header('location: user-login.php');
 }
+ob_start();
 ?>
 
 

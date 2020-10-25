@@ -71,22 +71,19 @@
 											 	move_uploaded_file($_FILES['book_image']['tmp_name'], '../book_img/'.$photo_name);
 											 	if($insert_book){
 											 		$book_added = "Book successfully Added";
-											 		echo '<p><a href="javascript:history.go(-1)" title="Return to the previous page">&laquo; Go back</a></p>';
-
-				                                }
+											 		header('location: manage-book.php?added-book');
+											 	}
 											 }else{
 											 	echo "Please input all field";
 											 }
-
-											
-										}
+											}
 										?>
 
 										<?php
 										if(isset($book_added)){
 											?>
 											<div class="alert alert-success alert-dismissable">
-					                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					                           <a href="javascript:history.go(-1)" class="close" data-dismiss="alert" aria-label="close">×</a>
 					                           <strong><?=$book_added?></strong>
 					                        </div>
 
