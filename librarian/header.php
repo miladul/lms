@@ -181,6 +181,7 @@ ob_start();
                             <ul class="nav nav-left-lines" id="main-nav">
                                 <!--HOME-->
                                 <li class="<?= $page=='index.php'?'active-item':'' ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
+
                                 
                                 <li class="<?= $page=='students.php'?'active-item':'' ?>"><a href="students.php"><i class="fa fa-users" aria-hidden="true"></i><span>Students</span></a></li>
                                 <li class="has-child-item close-item <?= $page=='add-book.php' || $page=='manage-book.php'?'open-item':'' ?>">
@@ -190,6 +191,7 @@ ob_start();
                                         <li class="<?= $page=='manage-book.php'?'active-item':'' ?>"><a href="manage-book.php">Manage Book</a></li>
                                     </ul>
                                 </li>
+                                <li class="<?= $page=='issue-book.php'?'active-item':'' ?>"><a href="issue-book.php"><i class="fa fa-plus" aria-hidden="true"></i><span>Issue Book</span></a></li>
 
                                 <li class="<?= $page=='test.php'?'active-item':'' ?>"><a href="test.php"><i class="fa fa-book" aria-hidden="true"></i><span>Test</span></a></li>
                             </ul>
