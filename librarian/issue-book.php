@@ -73,7 +73,7 @@
 															</div>
 															<div class="form-group">
 																<label for="book_issue_date">Book Issue Date</label>
-																<input type="date" readonly="" class="form-control" id="book_issue_date" name="book_issue_date" value="<?= date("Y-m-d") ?>">
+																<input type="text" readonly="" class="form-control" id="book_issue_date" name="book_issue_date" value="<?= date("d-m-Y") ?>">
 															</div>
 															<div class="form-group">
 																<button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>

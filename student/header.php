@@ -1,5 +1,7 @@
 <?php
 
+require_once('../database.php');
+
 $page = explode('/', $_SERVER['PHP_SELF']);
 $page = end($page);
 //echo $page;
@@ -35,6 +37,8 @@ if(!isset($_SESSION['username'])){
     <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
     <!--Magnific popup-->
     <link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css">
+    <!--dataTable-->
+    <link rel="stylesheet" href="../assets/vendor/data-table/media/css/dataTables.bootstrap.min.css">
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
